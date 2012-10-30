@@ -17,3 +17,5 @@ var cfg = {
 		result_type: 'recent'
 	}
 };
+
+if (typeof exports !== 'undefined') exports.cfg = cfg;

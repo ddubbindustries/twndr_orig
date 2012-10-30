@@ -1,5 +1,6 @@
 // server conditional
-if (typeof $ == 'undefined') var $ = require('jquery');
+if (typeof $ == 'undefined') var $ = require('./srvr/node_modules/jquery');
+if (typeof cfg == 'undefined') var cfg = require('./cfg').cfg;
 if (typeof params == 'undefined') var params = {};
 
 String.prototype.matchp = function(rgx) { return (this.match(rgx) || [,false])[1]; }; // only return inner parens, fallback to false
@@ -39,20 +40,6 @@ var util = {
 			tot += this;
 		});
 		return Math.ceil(tot/arr.length);
-	},
-	log: function(input){
-		var obSub = function(ob) {var r = [];var i = 0;for (var z in ob) {if (ob.hasOwnProperty(z)) {r[i++] = z;}}return r;},
-			getVarName = function(variable) {return obSub(window).map(function(a){if( window[a] === variable ){return a} }).sort()[0]};
-		console.log(getVarName(input)+':', input);
-	},
-	getUrlVars: function() {
-		var input = window.location.search, out = {}, hash, 
-			hashes = input.slice(1).split('&');
-		for (i in hashes) {
-		  hash = hashes[i].split('=');
-		  out[hash[0]] = hash[1];
-		}
-		return out;
 	},
 	getSubwordCombos: function(input, min, max) {
 		var arr = input.trim().split(' '), 
@@ -232,7 +219,6 @@ var words = {
 var go = {
 	init: function(hook) {
 		go.hook = go.setHooks(hook || {});
-		go.setParams();
 		go.hook.init();
 		go.start('?'+$.param(cfg.params));
 	},
@@ -241,18 +227,6 @@ var go = {
 			hook[this] = hook[this] || function(){return false;};
 		});
 		return hook;
-	},
-	setParams: function() {
-		params = util.getUrlVars();
-		for (k in params) {
-			if (cfg_match = k.matchp(/^cfg_(.+)/)) {
-				cfg[cfg_match] = params[k];
-			} else {
-				cfg.params[k] = params[k];
-			}
-		}
-		if (params.max_id && params.since_id) cfg.pages = 20; // will use as many pages as needed to return between ids
-		if (params.max_id || cfg.useLocalStore) cfg.liveMode = false;
 	},
 	start: function(path) {
 		words.init();

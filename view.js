@@ -1,4 +1,28 @@
+var util = { 
+	getUrlVars: function() {
+		var input = window.location.search, out = {}, hash, 
+			hashes = input.slice(1).split('&');
+		for (i in hashes) {
+		  hash = hashes[i].split('=');
+		  out[hash[0]] = hash[1];
+		}
+		return out;
+	}
+};
+
 var hook = {
+	init: function(){
+		params = util.getUrlVars();
+		for (k in params) {
+			if (cfg_match = k.matchp(/^cfg_(.+)/)) {
+				cfg[cfg_match] = params[k];
+			} else {
+				cfg.params[k] = params[k];
+			}
+		}
+		if (params.max_id && params.since_id) cfg.pages = 20; // will use as many pages as needed to return between ids
+		if (params.max_id || cfg.useLocalStore) cfg.liveMode = false;
+	},
 	start: function() {
 		$tweetlist = $('#tweets').empty();
 		$tweets = $tweetlist.children('li');
