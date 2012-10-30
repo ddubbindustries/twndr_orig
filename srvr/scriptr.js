@@ -4,7 +4,7 @@ var tweetr = require('./tweetr'),
 
 go.init({
 	finalize: function(words){
-		//tweetr.postTweet(words.comboTweet());
+		tweetr.postTweet(words.comboTweet());
 		emailr.send({
 			from: 'Twndr <bot@twndr.com>',
 			to: 'dave.williams@rackspace.com',
