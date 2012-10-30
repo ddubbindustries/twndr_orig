@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/tweet_format.js"></script>
+		<script type="text/javascript" src="cfg.js"></script>
+		<script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="view.js?"></script>
+		<style type="text/css">
+			body {
+				font: 10px/12px 'Lucida Grande', Verdana;
+			}
+			h2 {
+				font-size: 12px;
+			}
+			a {
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			button {
+				cursor: pointer;
+			}
+			ul {
+				padding:0;
+				list-style-type: none;
+				margin: 0 0 0 24px;
+				list-style-type: decimal;
+				list-style-position: outside;
+			}
+			li {
+				clear: left;
+			}
+			ul li ul {
+				list-style-type: none;
+				margin-left: 12px;
+			}
+			#Xstats {
+				width: 40%;
+				float: left;
+			}
+			#stats_alt {
+				width: 40%;
+				float: left;
+				margin-left: 10%;
+			}
+			.stats > li {
+				background: #EEF;
+			}
+			.stats li.hover {
+				background: #DDF;
+				cursor: pointer;
+			}
+			.stats li.hover .hbar {
+				background: #BBF;
+			}
+			.stats li .hbar {
+				background: #DDF;
+				white-space: nowrap;
+				padding: 1px;
+				margin-bottom: 1px;
+			}
+			.stats li .number {
+				color: #FFF;
+				padding-left:4px;
+				text-align: right;
+			}
+			.subwords {
+				display: none;
+			}
+			.freqChart {
+				padding:0;
+				margin: 0;
+				border: 0;
+				width: 100%;
+			}
+			.freqChart td {
+				padding: 0;
+				border: 0;
+				vertical-align: bottom;
+				background: #DFD;
+				text-align: center;
+			}
+			.freqChart .vbar {
+				background: #ACA;
+			}
+			.freqChart td:hover {
+				background: #CFC;
+			}
+			.freqChart td:hover .vbar {
+				background: #9B9;
+			}
+			.freqChart .vbar .count {
+				color: #FFF;
+				font-size: 10px;
+				padding: 2px;  
+			}
+			.col {
+				float: left;
+				padding-bottom: 10px;
+			}
+			.row {
+				border-bottom: solid 1px #CCC;
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+			}
+			#col1 {
+				width: 65%;
+			}
+			#col2 {
+				width: 30%;
+				border-left: solid 1px #CCC;
+				padding-left: 10px;
+				margin-left: 10px;
+			}
+			#meta .key {
+				font-weight: bold;
+			}
+			#tweets li {
+				position: relative;
+			}
+			#tweets img {
+				float: left;
+				height: 25px;
+				width: 25px;
+				border: none;
+				padding: 0 40px 10px 0;
+			}
+			.timestamp, .timestamp a, .location {
+				color: #AAA;
+			}
+			.filtered {
+				position: fixed;
+				width: 60%;
+			}
+			.filtered .new {
+				display: none;
+			}
+			#tweetdata {
+				position: absolute;
+				top: 0;
+				left: 0;
+				color: #FFF;
+				background: rgba(0,0,0,0.75);
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="col1" class="col">
+			<ul id="tweets"></ul>
+		</div>
+		<div id="col2" class="col">
+			<h1 style="text-align:center;">
+				<img src="twndr.png" alt="twndr - local twitter trends"/>
+			</h1>
+			<div id="meta" class="row"></div>
+			<div id="statswrapper">
+				<ul id="stats" class="stats"></ul>
+			</div>
+			<h2>invented by <a href="http://twitter.com/ddubbindustries">@ddubbindustries</a></h2>
+		</div>
+	</body>
+</html>
