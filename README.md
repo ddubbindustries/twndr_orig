@@ -2,7 +2,6 @@ Installation
 ============
 
 1. install https://github.com/joyent/node
-1. clone
 1. adjust your cfg.js as needed
 1. point your browser to index.html and see live results
 1. paste your api keys into apikeys-sample.js and save as apikeys.js
