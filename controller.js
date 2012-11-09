@@ -59,11 +59,6 @@ var util = {
 	},
 	uniq: function(arr) {
 		return arr.filter(function(el,i,a){return i==a.indexOf(el)});
-	},
-	flushLocalStorage: function() {
-		for (k in localStorage) {
-			localStorage.removeItem(k);
-		}
 	}
 };
 

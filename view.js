@@ -1,4 +1,4 @@
-var util = { 
+var viewUtil = { 
 	getUrlVars: function() {
 		var input = window.location.search, out = {}, hash, 
 			hashes = input.slice(1).split('&');
@@ -7,12 +7,17 @@ var util = {
 		  out[hash[0]] = hash[1];
 		}
 		return out;
+	},
+	flushLocalStorage: function() {
+		for (k in localStorage) {
+			localStorage.removeItem(k);
+		}
 	}
 };
 
 var hook = {
 	init: function(){
-		params = util.getUrlVars();
+		params = viewUtil.getUrlVars();
 		for (k in params) {
 			if (cfg_match = k.matchp(/^cfg_(.+)/)) {
 				cfg[cfg_match] = params[k];
@@ -82,7 +87,7 @@ var hook = {
 		
 		$('#reload, h1 img').click(function(){ location.reload(); });
 
-		$('#flush').click(util.flushLocalStorage);
+		$('#flush').click(viewUtil.flushLocalStorage());
 
 		$('#consolidate').click(function(){
 			words.consolidate();
