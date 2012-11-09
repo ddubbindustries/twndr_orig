@@ -4,6 +4,7 @@ if (typeof cfg == 'undefined') var cfg = require('./cfg').cfg;
 if (typeof params == 'undefined') var params = {};
 
 String.prototype.matchp = function(rgx) { return (this.match(rgx) || [,false])[1]; }; // only return inner parens, fallback to false
+String.prototype.getSec = function() {return new Date(this).getTime() / 1000};
 
 var util = {
 	commonWords: "time know back why like day today rt " + "a able about above across after all almost along already also always am an and any anybody anyone anything anyway anyways anywhere apart are aren't around as ask asking at away be because been before behind being below best better between both but by c'mon came can can't cant clearly come comes could couldn't did didn't do does doesn't doing don't done each either else etc even ever every everybody everyone everything everywhere exactly except far few first followed following follows for from get gets getting given gives go goes going gone got gotten had hadn't happens hardly has hasn't have haven't having he he's her here here's hers herself him himself his how however i i'd i'll i'm i've if in instead into is isn't it it'd it'll it's its itself just keep keeps kept let's many may maybe me might more much my neither no not nothing now of oh ok okay old on once one ones only onto or other others our ours ourselves out over own probably quite really right said same saw say saying says see seeing seem seemed seeming seems seen she should shouldn't since so some somebody somehow someone something sometime sometimes somewhere soon still such sure take taken tell than that that's thats the their theirs them themselves then there there's theres these they they'd they'll they're they've this those though through thru to together too took toward towards tried tries truly try trying twice under unfortunately until up us use used uses using usually very vs was wasn't way we we'd we'll we're we've well went were weren't what what's when where where's whether which while who who's whoever whole whom whose will with within without won't would wouldn't yes yet you you'd you'll you're you've your yours yourself yourselves",
@@ -97,11 +98,10 @@ var words = {
 			if (new_word_lower == words.list[i].word && words.uniqueToUser(tweet.from_user_id,i)) {
 				words.list[i].count += 1;
 				words.list[i].alt[new_word] = words.list[i].alt[new_word] ? words.list[i].alt[new_word] + 1 : 1;
-				words.list[i].tweetIds += ',#' + tweet.id;
 				words.list[i].tweetData.push({
 					id: tweet.id,
 					user: tweet.from_user_id,
-					timestamp: tweet.created_at
+					timestamp: tweet.created_at.getSec()
 				});
 				return words.sortTally(i);
 			}
@@ -121,11 +121,10 @@ var words = {
 				return maxKey;
 			},
 			count: 1,
-			tweetIds: '#' + tweet.id,
 			tweetData: [{
 				id: tweet.id,
 				user: tweet.from_user_id,
-				timestamp: tweet.created_at
+				timestamp: tweet.created_at.getSec()
 			}]
 		});
 	},
@@ -320,4 +319,3 @@ var go = {
 
 // server conditional
 if (typeof exports !== 'undefined') exports.init = go.init;
-

@@ -51,6 +51,7 @@ var hook = {
 		$tweets = $tweetlist.children('li');
 	},
 	processAfter: function(words) {
+		
 		var out = '<li id="all">[all]</li>', i = 0, max = (cfg.displayWordCount > words.list.length ? words.list.length : cfg.displayWordCount),
 			buildSubs = function(k,v){subwords += '<li><span class="word">'+k+'</span><span class="number">'+v+'</span></li>'};
 		
@@ -58,6 +59,9 @@ var hook = {
 			subwords = '';
 
 			$.each(words.list[i].alt, buildSubs);
+	
+			// build convenience string for future filter event
+			words.list[i].tweetIds = '#' + words.list[i].tweetData.map(function(a){return a.id}).join(',#');
 
 			out += '<li id="'+i+'"><div class="hbar" style="width:'+Math.round(words.list[i].count / words.list[0].count * 100)+'%;">'+
 				'<span class="word">'+words.list[i].getBestWord()+'</span>'+
